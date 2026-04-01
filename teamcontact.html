@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreshBites | Leadership & Partnerships</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #FEFCF5 0%, #F9F6ED 100%); color: #1A2E28; overflow-x: hidden; }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(254, 252, 245, 0.96);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(76, 175, 122, 0.2);
+    }
+    
+    .logo { font-size: 1.9rem; font-weight: 800; background: linear-gradient(135deg, #2C6E49, #4CAF7A); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2A4D3C; transition: 0.3s; position: relative; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #2C6E49, #4CAF7A);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    
+    .btn-primary {
+      background: linear-gradient(105deg, #2C6E49, #4CAF7A);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      box-shadow: 0 8px 20px rgba(44, 110, 73, 0.25);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(44, 110, 73, 0.35); }
+    
+    .btn-outline-small {
+      border: 1.5px solid #2C6E49;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-outline-small:hover { background: #2C6E49; color: white; }
+    
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 7rem 0 4rem; }
+    
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .team-card {
+      background: white;
+      border-radius: 40px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.4s;
+      border: 1px solid rgba(76, 175, 122, 0.15);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.03);
+    }
+    .team-card:hover {
+      transform: translateY(-10px);
+      border-color: #4CAF7A;
+      box-shadow: 0 30px 45px -15px rgba(44, 110, 73, 0.2);
+    }
+    .avatar-icon {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #E2F0E8, #D4E8DA);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem;
+      font-size: 3rem;
+      color: #2C6E49;
+    }
+    .avatar-icon i {
+      font-size: 3rem;
+      color: #2C6E49;
+    }
+    
+    .contact-wrapper {
+      background: white;
+      border-radius: 60px;
+      padding: 3rem;
+      margin: 3rem 0;
+      box-shadow: 0 25px 50px -20px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+    
+    .contact-info { flex: 1; }
+    .contact-form { flex: 1; }
+    
+    input, textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 60px;
+      border: 1px solid #E0D8C4;
+      background: #FEFCF5;
+      font-family: inherit;
+      margin-bottom: 1rem;
+      transition: all 0.3s;
+    }
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: #4CAF7A;
+      box-shadow: 0 0 0 3px rgba(76, 175, 122, 0.1);
+    }
+    
+    .partner-card {
+      background: linear-gradient(135deg, #EFF6EF, #F5F9EF);
+      border-radius: 48px;
+      padding: 2rem;
+      margin: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .social-links a {
+      color: #2C6E49;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+    .social-links a:hover { transform: translateY(-3px); color: #4CAF7A; }
+    
+    footer {
+      background: linear-gradient(135deg, #13241F, #1A352C);
+      color: #C6DDD0;
+      padding: 3rem 2rem;
+      border-radius: 40px 40px 0 0;
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .container { padding: 0 1.2rem; }
+      .contact-wrapper { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🌿 FRESHBITES</div>
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="whyus.html">Why Us</a>
+    <a href="teamcontact.html">Team</a>
+    <a href="#" id="orderTopBtn" class="btn-outline-small"><i class="fas fa-tag"></i> 30% OFF</a>
+  </div>
+</nav>
+
+<section>
+  <div class="container">
+    <div style="text-align: center;" data-aos="fade-down">
+      <h1 style="font-size: 3.2rem;">Meet the <span style="background: linear-gradient(135deg, #2C6E49, #4CAF7A); -webkit-background-clip: text; background-clip: text; color: transparent;">visionaries</span></h1>
+      <p style="font-size: 1.1rem; max-width: 600px; margin: 1rem auto;">A multidisciplinary team uniting medical expertise, AI innovation, and culinary excellence.</p>
+    </div>
+
+    <div class="team-grid" data-aos="fade-up">
+      <div class="team-card"><div class="avatar-icon"><i class="fas fa-user-tie"></i></div><h3>Flora Tulina</h3><p style="color: #4CAF7A; font-weight: 600;">Chief Executive Officer</p><p>Strategic direction, AI-medical ethics, farmer partnerships, and ensuring every meal transforms lives.</p></div>
+      
+      <div class="team-card"><div class="avatar-icon"><i class="fas fa-chart-line"></i></div><h3>James Mwangi</h3><p style="color: #4CAF7A; font-weight: 600;">Operations Director</p><p>Supply chain, zero-waste logistics, and seamless delivery across Nairobi metropolitan area.</p></div>
+      
+      <div class="team-card"><div class="avatar-icon"><i class="fas fa-laptop-code"></i></div><h3>Dr. Sarah Kimani</h3><p style="color: #4CAF7A; font-weight: 600;">CTO & AI Lead</p><p>AI architecture, health data security, and personalization algorithms with medical oversight.</p></div>
+      
+      
+      <div class="team-card"><div class="avatar-icon"><i class="fas fa-utensil-spoon"></i></div><h3>Daniel Omondi</h3><p style="color: #4CAF7A; font-weight: 600;">Head Chef</p><p>Culinary innovation, East African superfoods, and creating meals that nourish and delight.</p></div>
+      
+      <div class="team-card"><div class="avatar-icon"><i class="fas fa-bullhorn"></i></div><h3>Wanjiku Ndegwa</h3><p style="color: #4CAF7A; font-weight: 600;">Marketing & Community</p><p>Brand storytelling, wellness education, and building a community of health-conscious Kenyans.</p></div>
+      
+      <div class="team-card"><div class="avatar-icon"><i class="fas fa-heartbeat"></i></div><h3>Dr. Michael Otieno</h3><p style="color: #4CAF7A; font-weight: 600;">Medical Advisor</p><p>Clinical validation of meal plans, partnership with NovaCrest Medical Center.</p></div>
+    </div>
+
+    <div class="partner-card" data-aos="zoom-in">
+      <div>
+        <i class="fas fa-handshake" style="font-size: 2.2rem; color: #2C6E49;"></i>
+        <h3 style="margin-top: 0.5rem;">Partner with FreshBites</h3>
+        <p>Hospitals · Corporate Wellness · Gyms · Schools · Insurance Providers</p>
+      </div>
+      <button id="partnerBtn" class="btn-primary"><i class="fas fa-file-alt"></i> Request Partnership Deck</button>
+    </div>
+
+    <div class="contact-wrapper" data-aos="fade-up">
+      <div class="contact-info">
+        <h2><i class="fas fa-leaf"></i> Let's connect</h2>
+        <p style="margin: 1rem 0;"><i class="fas fa-map-pin"></i> Westlands, Nairobi, Kenya</p>
+        <p><i class="fas fa-phone-alt"></i> +254 711 711 411</p>
+        <p><i class="fas fa-envelope"></i> hello@freshbites.com</p>
+        <p><i class="fas fa-hospital-user"></i> Medical partnerships: medical@freshbites.com</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
+        <div style="margin-top: 2rem; background: #EFF6EF; padding: 1rem; border-radius: 28px;">
+          <i class="fas fa-clock"></i> Delivery: 7am – 9pm daily<br>
+          <i class="fas fa-truck"></i> Free delivery within Nairobi for orders above KES 2,500
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3>Get your personalised plan</h3>
+        <p style="margin-bottom: 1rem; color: #5A7B6C;">Free nutrition assessment with every signup</p>
+        <form id="contactForm">
+          <input type="text" placeholder="Full name" id="fullName" required>
+          <input type="email" placeholder="Email address" id="emailAddr" required>
+          <input type="tel" placeholder="Phone number (optional)">
+          <textarea rows="3" placeholder="Tell us about your health goals, dietary restrictions, or partnership inquiry..."></textarea>
+          <button type="submit" class="btn-primary" style="width: 100%; justify-content: center;"><i class="fas fa-paper-plane"></i> Send Message →</button>
+        </form>
+        <p style="margin-top: 1rem; font-size: 0.8rem; text-align: center;">We respond within 24 hours. Your data is protected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem;">
+    <div>
+      <div class="logo" style="color: #C6DDD0;">🌿 FRESHBITES</div>
+      <p style="margin-top: 0.5rem;">Nourished by science. Delivered with love.<br>Built for Africa, backed by clinical intelligence.</p>
+    </div>
+    <div>
+      <p><strong>Quick Links</strong><br>About Us<br>AI Technology<br>Medical Partners<br>Sustainability Report</p>
+    </div>
+    <div>
+      <p><strong>Legal</strong><br>Privacy Policy<br>Terms of Service<br>Medical Disclaimer</p>
+    </div>
+    <div>
+      <p>© 2025 FreshBites Inc.<br>All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 700, once: false, mirror: true });
+  
+  function showDiscount() {
+    alert("🎉 FRESH30 activated! 30% OFF your first two orders. Download the FreshBites app to start your personalized nutrition journey.");
+  }
+  
+  document.getElementById('orderTopBtn')?.addEventListener('click', (e) => { e.preventDefault(); showDiscount(); });
+  document.getElementById('partnerBtn')?.addEventListener('click', () => {
+    alert("📄 Thank you for your interest! Our partnerships team will email you the complete medical integration deck, corporate wellness proposal, and pricing within 24 hours.");
+  });
+  
+  const form = document.getElementById('contactForm');
+  if(form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('fullName')?.value;
+      if(name && name.trim() !== "") {
+        alert(`🌿 Asante ${name}! A FreshBites nutrition specialist will contact you within 24h with your personalized assessment. Enjoy 30% OFF your first order!`);
+        form.reset();
+      } else {
+        alert("Please enter your name to proceed.");
+      }
+    });
+  }
+</script>
+</body>
+</html>

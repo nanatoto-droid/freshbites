@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreshBites | Science Meets Heritage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #FEFCF5; color: #1A2E28; overflow-x: hidden; }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(254, 252, 245, 0.96);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(76, 175, 122, 0.2);
+    }
+    
+    .logo { font-size: 1.9rem; font-weight: 800; background: linear-gradient(135deg, #2C6E49, #4CAF7A); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #2A4D3C; transition: 0.3s; position: relative; }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #2C6E49, #4CAF7A);
+      transition: width 0.3s;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    
+    .btn-outline {
+      border: 1.5px solid #2C6E49;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn-outline:hover { background: #2C6E49; color: white; transform: translateY(-2px); }
+    
+    .btn-primary {
+      background: linear-gradient(105deg, #2C6E49, #4CAF7A);
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 12px 28px rgba(44, 110, 73, 0.3);
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 18px 35px rgba(44, 110, 73, 0.4); }
+    
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 2rem; }
+    section { padding: 7rem 0 4rem; }
+    
+    .hero-section {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+    }
+    .hero-section h1 {
+      font-size: 3.8rem;
+      background: linear-gradient(135deg, #1A3F2E, #2C6E49, #4CAF7A);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    .hero-badge {
+      background: linear-gradient(135deg, #E2F0E8, #D4E8DA);
+      color: #2C6E49;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    
+    .feature-card {
+      background: white;
+      border-radius: 40px;
+      padding: 2.2rem;
+      transition: all 0.4s;
+      border: 1px solid rgba(76, 175, 122, 0.15);
+      box-shadow: 0 20px 35px -15px rgba(0, 0, 0, 0.05);
+    }
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: #4CAF7A;
+      box-shadow: 0 30px 45px -20px rgba(44, 110, 73, 0.2);
+    }
+    .feature-card i { font-size: 2.8rem; background: linear-gradient(135deg, #2C6E49, #4CAF7A); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
+    
+    .kenyan-showcase {
+      background: linear-gradient(135deg, #EFF6EF, #E8F0E4);
+      border-radius: 60px;
+      padding: 3rem;
+      margin: 3rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .food-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .food-item {
+      background: white;
+      padding: 0.8rem;
+      border-radius: 20px;
+      text-align: center;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .vision-timeline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    .vision-item {
+      flex: 1;
+      background: white;
+      border-radius: 32px;
+      padding: 1.8rem;
+      text-align: center;
+      transition: all 0.3s;
+      border: 1px solid #E9E2D0;
+    }
+    .vision-item:hover {
+      background: linear-gradient(135deg, #2C6E49, #3F8C62);
+      color: white;
+      transform: scale(1.02);
+    }
+    .vision-item:hover i { color: white; }
+    .vision-item i { font-size: 2rem; color: #2C6E49; margin-bottom: 0.8rem; display: inline-block; }
+    
+    .offer-banner {
+      background: linear-gradient(125deg, #2C6E49, #4CAF7A);
+      border-radius: 50px;
+      padding: 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      color: white;
+      margin: 3rem 0;
+    }
+    
+    footer {
+      background: linear-gradient(135deg, #13241F, #1A352C);
+      color: #C6DDD0;
+      padding: 3rem 2rem;
+      border-radius: 40px 40px 0 0;
+      margin-top: 3rem;
+    }
+    
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .hero-section h1 { font-size: 2.2rem; }
+      .container { padding: 0 1.2rem; }
+      .food-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">🌿 FRESHBITES</div>
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="whyus.html">Why Us</a>
+    <a href="teamcontact.html">Team</a>
+    <a href="#" id="orderNavBtn" class="btn-outline"><i class="fas fa-tag"></i> 30% OFF</a>
+  </div>
+</nav>
+
+<section>
+  <div class="container">
+    <div class="hero-section" data-aos="fade-down">
+      <span class="hero-badge">Why FreshBites</span>
+      <h1>Where science meets<br><span class="gradient-text">African heritage</span></h1>
+      <p style="font-size: 1.2rem; max-width: 700px; margin: 1rem auto;">Evidence-based nutrition, elevated by East African superfoods and powered by artificial intelligence.</p>
+    </div>
+
+    <div class="feature-grid" data-aos="fade-up">
+      <div class="feature-card"><i class="fas fa-stethoscope"></i><h3>Clinically Credible</h3><p>Every recipe is reviewed by qualified doctors. Meals designed to support treatment, recovery, and prevention of NCDs.</p></div>
+      <div class="feature-card"><i class="fas fa-brain"></i><h3>AI Precision Engine</h3><p>Our proprietary AI analyzes 27+ health markers to create meals with surgical accuracy for your unique biology.</p></div>
+      <div class="feature-card"><i class="fas fa-hand-holding-heart"></i><h3>Medical Partnerships</h3><p>Partnered with NovaCrest Medical Center and 15+ clinics. Doctors prescribe FreshBites like medication.</p></div>
+      <div class="feature-card"><i class="fas fa-leaf"></i><h3>Zero-Waste Kitchen</h3><p>Sustainable sourcing, composting partnerships, and minimal packaging. Good for you, good for the planet.</p></div>
+    </div>
+
+    <div class="kenyan-showcase" data-aos="zoom-in">
+      <div style="flex: 1">
+        <i class="fas fa-map-marked-alt" style="font-size: 2.5rem; color: #2C6E49;"></i>
+        <h2 style="margin: 0.8rem 0;">Proudly Kenyan</h2>
+        <p>We're reclaiming the superfoods our ancestors thrived on. Fresh, local, nutrient-dense ingredients from farmers across Kenya.</p>
+        <div class="food-grid">
+          <div class="food-item">🌱 Arrow Roots</div>
+          <div class="food-item">🌾 Millet</div>
+          <div class="food-item">🍠 Cassava</div>
+          <div class="food-item">🌿 Amaranth</div>
+          <div class="food-item">🫘 Pigeon Peas</div>
+          <div class="food-item">🐟 Tilapia</div>
+          <div class="food-item">🥩 Grass-fed Beef</div>
+          <div class="food-item">🌽 Sorghum</div>
+        </div>
+      </div>
+      <div style="flex: 0.8; text-align: center; background: white; border-radius: 40px; padding: 2rem;">
+        <i class="fas fa-quote-left" style="font-size: 2rem; color: #4CAF7A; opacity: 0.7;"></i>
+        <p style="font-style: italic; margin-top: 0.5rem; font-size: 1rem;">"The food this continent has always eaten is the most nutritious on the planet. We're elevating it."</p>
+        <p style="margin-top: 1rem; font-weight: 600;">— Flora Tulina, CEO</p>
+      </div>
+    </div>
+
+    <div data-aos="fade-right">
+      <h2 style="font-size: 2.2rem;">The bigger vision</h2>
+      <p style="margin: 1rem 0; color: #5A7B6C;">FreshBites is solving a crisis: diabetes, hypertension, and obesity driven by poor diet. We're building an ecosystem for total wellness.</p>
+      <div class="vision-timeline">
+        <div class="vision-item"><i class="fas fa-brain"></i><h3>Mental Wellness Range</h3><p>Targeting stress & burnout for Nairobi's professionals</p></div>
+        <div class="vision-item"><i class="fas fa-school"></i><h3>School Nutrition</h3><p>Healthy meals for children to thrive</p></div>
+        <div class="vision-item"><i class="fas fa-hospital"></i><h3>Hospital Integration</h3><p>Prescribed meals for recovery</p></div>
+        <div class="vision-item"><i class="fas fa-seedling"></i><h3>Carbon-Negative Kitchens</h3><p>By 2027</p></div>
+      </div>
+    </div>
+
+    <div class="offer-banner" data-aos="flip-up">
+      <span><i class="fas fa-apple-alt" style="font-size: 1.5rem;"></i> <strong>Limited Launch Offer:</strong> 30% OFF first two orders + Free AI Nutrition Assessment</span>
+      <button id="claimBtn" style="background: white; border: none; padding: 0.8rem 2rem; border-radius: 50px; font-weight: bold; color: #2C6E49; cursor: pointer;">Claim Now →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+    <div><div class="logo" style="color: #C6DDD0;">🌿 FRESHBITES</div><p>Nourished by science. Delivered with love.</p></div>
+    <div><p><i class="fab fa-instagram"></i> <i class="fab fa-twitter"></i> <i class="fab fa-linkedin"></i> @freshbites_ke</p></div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: false, mirror: true });
+  
+  function showDiscount() {
+    alert("🎉 FRESH30 activated! 30% OFF your first two orders. Download the FreshBites app to start your personalized journey.");
+  }
+  document.getElementById('orderNavBtn')?.addEventListener('click', (e) => { e.preventDefault(); showDiscount(); });
+  document.getElementById('claimBtn')?.addEventListener('click', showDiscount);
+</script>
+</body>
+</html>

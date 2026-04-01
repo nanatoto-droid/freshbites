@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>FreshBites | AI-Powered Nutrition · Nairobi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FEFCF5;
+      color: #1A2E28;
+      overflow-x: hidden;
+    }
+
+    /* Custom cursor */
+    .cursor-dot {
+      width: 8px;
+      height: 8px;
+      background: #4CAF7A;
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 10000;
+      transition: transform 0.1s;
+    }
+
+    .cursor-outline {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgba(76, 175, 122, 0.5);
+      border-radius: 50%;
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.15s ease-out;
+    }
+
+    /* Navigation */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(254, 252, 245, 0.96);
+      backdrop-filter: blur(12px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(76, 175, 122, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .logo {
+      font-size: 1.9rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #2C6E49, #4CAF7A, #6FBF8A);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2A4D3C;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: linear-gradient(90deg, #2C6E49, #4CAF7A);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .btn-outline {
+      border: 1.5px solid #2C6E49;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      background: transparent;
+      font-weight: 600;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      background: #2C6E49;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(44, 110, 73, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(105deg, #2C6E49, #4CAF7A);
+      color: white;
+      border: none;
+      padding: 1rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      box-shadow: 0 12px 28px rgba(44, 110, 73, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s, height 0.6s;
+    }
+
+    .btn-primary:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 18px 35px rgba(44, 110, 73, 0.4);
+    }
+
+    .container {
+      max-width: 1300px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    section {
+      padding: 7rem 0 5rem;
+    }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4rem;
+      margin-top: 2rem;
+    }
+
+    .hero-content {
+      flex: 1.2;
+    }
+
+    .hero-badge {
+      background: linear-gradient(135deg, #E2F0E8, #D4E8DA);
+      color: #2C6E49;
+      padding: 0.5rem 1.3rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 1.8rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .hero h1 {
+      font-size: 4rem;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #1A3F2E, #2C6E49, #4CAF7A);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: #5A7B6C;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .hero-image {
+      flex: 1;
+      position: relative;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .hero-image img {
+      max-width: 100%;
+      border-radius: 60px;
+      box-shadow: 0 40px 60px -25px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-image::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      background: radial-gradient(circle, rgba(76, 175, 122, 0.1) 0%, transparent 70%);
+      border-radius: 80px;
+      z-index: -1;
+    }
+
+    /* Stats */
+    .stats-wrapper {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 2rem;
+      background: linear-gradient(135deg, #EFF6EF, #F5F9F0);
+      border-radius: 80px;
+      padding: 3rem 2rem;
+      margin: 2rem 0;
+    }
+
+    .stat-item {
+      text-align: center;
+      position: relative;
+    }
+
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #2C6E49;
+      animation: countUp 2s ease-out;
+    }
+
+    /* Cards */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .premium-card {
+      background: white;
+      border-radius: 40px;
+      padding: 2rem;
+      transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      border: 1px solid rgba(76, 175, 122, 0.2);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .premium-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #2C6E49, #4CAF7A, #6FBF8A);
+      transform: scaleX(0);
+      transition: transform 0.5s;
+    }
+
+    .premium-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .premium-card:hover {
+      transform: translateY(-12px);
+      border-color: #4CAF7A;
+      box-shadow: 0 30px 45px -20px rgba(44, 110, 73, 0.25);
+    }
+
+    .premium-card i {
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #2C6E49, #4CAF7A);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.2rem;
+    }
+
+    /* Floating Elements */
+    .floating-element {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #25D366;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: white;
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+      z-index: 99;
+    }
+
+    .floating-element:hover {
+      transform: scale(1.1);
+      box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    footer {
+      background: linear-gradient(135deg, #13241F, #1A352C);
+      color: #C6DDD0;
+      padding: 3rem 2rem;
+      border-radius: 40px 40px 0 0;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem; }
+      .hero h1 { font-size: 2.5rem; }
+      .container { padding: 0 1.2rem; }
+      section { padding: 5rem 0 3rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="cursor-dot"></div>
+<div class="cursor-outline"></div>
+
+<nav>
+  <div class="logo">🌿 FRESHBITES</div>
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="whyus.html">Why Us</a>
+    <a href="teamcontact.html">Team</a>
+    <a href="#" id="orderNavBtn" class="btn-outline"><i class="fas fa-tag"></i> 30% OFF</a>
+  </div>
+</nav>
+
+<section>
+  <div class="container">
+    <div class="hero">
+      <div class="hero-content" data-aos="fade-right" data-aos-duration="1000">
+        <span class="hero-badge"><i class="fas fa-microchip"></i> AI-POWERED NUTRITION</span>
+        <h1>Nourished by <span class="gradient-text">science.</span><br>Delivered with <span class="gradient-text">love.</span></h1>
+        <p>Personalised meals crafted by chefs, verified by doctors, and powered by artificial intelligence. Your health journey starts here.</p>
+        <button class="btn-primary" id="heroCta"><i class="fas fa-utensil-spoon"></i> Start Your Journey → 30% OFF</button>
+        <div style="margin-top: 2rem; display: flex; gap: 1.5rem;">
+          <span><i class="fab fa-google-play"></i> Google Play</span>
+          <span><i class="fab fa-apple"></i> App Store</span>
+          <span><i class="fas fa-star" style="color: #FFB800;"></i> 4.9 ★ (1.2k+ reviews)</span>
+        </div>
+      </div>
+      <div class="hero-image" data-aos="fade-left" data-aos-duration="1000">
+        <img src="https://placehold.co/600x550/EFF6EA/2C6E49?text=FreshBites+AI+Meal+Experience" alt="FreshBites Meal">
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="stats-wrapper" data-aos="fade-up" data-aos-duration="800">
+    <div class="stat-item"><div class="stat-number" id="stat1">98</div><div>client satisfaction %</div></div>
+    <div class="stat-item"><div class="stat-number" id="stat2">15</div><div>medical partners</div></div>
+    <div class="stat-item"><div class="stat-number" id="stat3">50</div><div>local farmers</div></div>
+    <div class="stat-item"><div class="stat-number" id="stat4">2.5K</div><div>tailored plans</div></div>
+  </div>
+</div>
+
+<div class="container">
+  <div style="text-align: center;" data-aos="fade-up">
+    <h2 style="font-size: 2.6rem;">Your health, <span class="gradient-text">your journey</span></h2>
+    <p style="max-width: 680px; margin: 1rem auto; color: #5A7B6C;">Every meal is individually configured to match your metabolism, preferences & wellness targets.</p>
+  </div>
+  <div class="grid-3">
+    <div class="premium-card" data-aos="zoom-in" data-aos-delay="100">
+      <i class="fas fa-fire-flame-curved"></i>
+      <h3 style="font-size: 1.6rem; margin: 0.5rem 0;">🔥 Fat Loss</h3>
+      <p>High-protein, anti-inflammatory meals that help you shed weight while keeping you satisfied and energized.</p>
+      <div style="margin-top: 1rem;"><span style="background: #E2F0E8; padding: 0.3rem 0.8rem; border-radius: 20px;">← 500 kcal</span></div>
+    </div>
+    <div class="premium-card" data-aos="zoom-in" data-aos-delay="200">
+      <i class="fas fa-dumbbell"></i>
+      <h3 style="font-size: 1.6rem; margin: 0.5rem 0;">💪 Muscle Gain</h3>
+      <p>Complex carbs + high-quality protein. Designed for athletes, gym-goers, and active lifestyles.</p>
+      <div style="margin-top: 1rem;"><span style="background: #E2F0E8; padding: 0.3rem 0.8rem; border-radius: 20px;">40g protein →</span></div>
+    </div>
+    <div class="premium-card" data-aos="zoom-in" data-aos-delay="300">
+      <i class="fas fa-heart-pulse"></i>
+      <h3 style="font-size: 1.6rem; margin: 0.5rem 0;">🌿 General Wellness</h3>
+      <p>Gut-friendly, mood-boosting meals packed with East African superfoods for optimal vitality.</p>
+      <div style="margin-top: 1rem;"><span style="background: #E2F0E8; padding: 0.3rem 0.8rem; border-radius: 20px;">✨ 15+ nutrients</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="scroll-indicator">
+  <i class="fas fa-chevron-down" style="font-size: 1.5rem; color: #4CAF7A;"></i>
+</div>
+
+<footer>
+  <div class="container" style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem;">
+    <div>
+      <div class="logo" style="color: #C6DDD0;">🌿 FRESHBITES</div>
+      <p style="margin-top: 0.5rem;">Personalised nutrition ecosystem.<br>Built for Africa, backed by science.</p>
+    </div>
+    <div>
+      <p><strong>Explore</strong><br>AI Technology<br>Farmers Program<br>Medical Partners<br>Sustainability</p>
+    </div>
+    <div>
+      <p><i class="fab fa-instagram"></i> <i class="fab fa-twitter"></i> <i class="fab fa-linkedin"></i> @freshbites_ke<br>© 2025 FreshBites — All rights reserved</p>
+    </div>
+  </div>
+</footer>
+
+<div class="floating-element" id="whatsappBtn">
+  <i class="fab fa-whatsapp"></i>
+</div>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: false, mirror: true, offset: 50 });
+
+  // Custom cursor
+  const cursorDot = document.querySelector('.cursor-dot');
+  const cursorOutline = document.querySelector('.cursor-outline');
+  
+  document.addEventListener('mousemove', (e) => {
+    if(cursorDot) cursorDot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+    if(cursorOutline) cursorOutline.style.transform = `translate(${e.clientX - 20}px, ${e.clientY - 20}px)`;
+  });
+
+  // Animated counter
+  function animateCounter(element, target, suffix = '') {
+    let current = 0;
+    const increment = target / 50;
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        element.textContent = target + suffix;
+        clearInterval(timer);
+      } else {
+        element.textContent = Math.floor(current) + suffix;
+      }
+    }, 30);
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateCounter(document.getElementById('stat1'), 98, '%');
+        animateCounter(document.getElementById('stat2'), 15, '+');
+        animateCounter(document.getElementById('stat3'), 50, '+');
+        animateCounter(document.getElementById('stat4'), 2.5, 'K');
+        observer.disconnect();
+      }
+    });
+  });
+  observer.observe(document.querySelector('.stats-wrapper'));
+
+  function showDiscount() {
+    alert("🎉 FRESH30 activated! 30% OFF your first two orders. Download the FreshBites app to start your personalized journey.");
+  }
+  
+  document.getElementById('heroCta')?.addEventListener('click', showDiscount);
+  document.getElementById('orderNavBtn')?.addEventListener('click', (e) => { e.preventDefault(); showDiscount(); });
+  document.getElementById('whatsappBtn')?.addEventListener('click', () => { alert("📱 WhatsApp: +254 711 711 411 — Chat with our wellness concierge 24/7"); });
+  
+  // Smooth scroll
+  document.querySelector('.scroll-indicator')?.addEventListener('click', () => {
+    window.scrollBy({ top: window.innerHeight, behavior: 'smooth' });
+  });
+</script>
+</body>
+</html>
